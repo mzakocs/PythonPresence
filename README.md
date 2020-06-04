@@ -11,7 +11,10 @@ You need to write something on your front end to parse these JSON requests and a
 Install these dependencies for the app to work correctly
 
 > pip install configparser    
+
 > pip install psycopg2    
+
 > pip install python-sipsimple    
+
 
 These dependencies are for config files, postgres support, and SIP stack support respectively.
