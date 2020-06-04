@@ -89,7 +89,7 @@ class SubscriptionApplication(object):
     implements(IObserver)
 
     def __init__(self):
-        self.account_name = "2663@sip1.ordertech.com"
+        self.account_name = None
         self.target = None
         self.input = InputThread(self)
         self.output = EventQueue(self._write)
