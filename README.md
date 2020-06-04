@@ -6,8 +6,8 @@
 - The updates for WebPresence and BLF are sent out over SIP messaging to a command extension. 
 You need to write something on your front end to parse these JSON requests and act on them accordingly.  
 - The app is written in Python 2.7 because of compatibility reasons with SIPSIMPLE, the SIP stack library used in this application.  
-- You need to add an account with SIPSIMPLE in your favorite terminal emulator before you can run the app. For Example:
-> sip-settings -a add user@domain password  
+- You need to add an account with SIPSIMPLE in your favorite terminal emulator before you can run the app.
+  > sip-settings -a add user@domain password  
 
 ## Dependencies  
 Install these dependencies for the app to work correctly
