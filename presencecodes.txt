@@ -1,0 +1,6 @@
+Different codes returned by this system per extension:
+    available: the extension is online and not currently in a call
+    talk <user>: the extension is currently in a call with <user>
+    call <user>: the extension has sent a call to <user> (outbound)
+    ring <user>: the extension is being called by <user> (inbound)
+    unregistered: the extension currently has no registered devices and is offline
