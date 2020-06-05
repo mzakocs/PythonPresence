@@ -14,13 +14,11 @@ Run these commands in for the app to work correctly.
 apt and pip package manager are required.  
 Google the package names to find installation instructions for other operating systems.  
 
-> sudo apt install python-sipsimple
-
 > pip install configparser    
 
 > pip install psycopg2    
 
-> pip install python-sipsimple    
+> sudo apt install python-sipsimple  
 
 
 These dependencies are for config files, postgres support, and SIP stack support respectively.
