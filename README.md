@@ -23,7 +23,9 @@ The package manageres apt and pip are required.
 
 > pip install psycopg2    
 
+> sudo apt-get install sipclients  
+
 > sudo apt install python-sipsimple  
 
 
-These dependencies are for python pip support, config files, postgres support, and SIP stack support respectively.
+These dependencies are for python dev tools, config files, postgres support, SIP configuration and SIP stack support respectively.
