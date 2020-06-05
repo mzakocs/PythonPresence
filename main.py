@@ -6,6 +6,7 @@ import sys
 import termios
 import urllib
 import json
+import configparser
 import dbmanager
 
 from collections import deque
@@ -89,7 +90,14 @@ class SubscriptionApplication(object):
     implements(IObserver)
 
     def __init__(self):
-        self.account_name = None
+        # Loads the config file
+        config = configparser.ConfigParser()
+        try:
+            config.read('config.ini')
+        except Exception as e:
+            print("ERROR: " + e)
+            return
+        self.account_name = config["SIPCONFIG"]["account_name"]
         self.target = None
         self.input = InputThread(self)
         self.output = EventQueue(self._write)
