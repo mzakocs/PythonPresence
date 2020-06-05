@@ -17,7 +17,7 @@ To start, add the signing key and repo for SIPSIMPLE that corresponds with your 
 Afterwards, run these commands in your favorite terminal emulator to install the dependencies.
 The package manageres apt and pip are required. 
 
-> sudo apt-get install python-dev 
+> sudo apt install python-dev 
 
 > pip install configparser    
 
