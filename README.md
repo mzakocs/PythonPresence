@@ -9,9 +9,13 @@ You need to write something on your front end to parse these JSON requests and a
 - You need to add an account with SIPSIMPLE in your favorite terminal emulator before you can run the app.
   > sip-settings -a add user@domain password  
 
-## Dependencies  
-Run these commands in your favorite terminal emulator before you run the app.
-The package manageres apt and pip are required.  
+## Dependencies   
+To start, add the signing key and repo for SIPSIMPLE that corresponds with your OS here: 
+
+  > https://docs-new.sipthor.net/w/debian_package_repositories/  
+  
+Afterwards, run these commands in your favorite terminal emulator to install the dependencies.
+The package manageres apt and pip are required. 
 
 > sudo apt-get install python-dev 
 
