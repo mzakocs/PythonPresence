@@ -16,13 +16,14 @@ class DatabaseManager:
             return
         # Loads the values into variables
         self.host = config['DATABASECONFIG']['host']
+        self.port = config['DATABASECONFIG']['port']
         self.user = config['DATABASECONFIG']['user']
         self.password = config['DATABASECONFIG']['password']
         self.database = config['DATABASECONFIG']['database']
         self.table = config['DATABASECONFIG']['table']
         self.column = config['DATABASECONFIG']['column']
         # Initiates the database connection
-        self.conn = psycopg2.connect(host = self.host, database = self.database, user = self.user, password = self.password)
+        self.conn = psycopg2.connect(host = self.host, database = self.database, user = self.user, password = self.password, port = self.port)
         
     def loadExtensions(self):
         # Creates a cursor 
