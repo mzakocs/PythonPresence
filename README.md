@@ -10,9 +10,8 @@ You need to write something on your front end to parse these JSON requests and a
   > sip-settings -a add user@domain password  
 
 ## Dependencies  
-Run these commands in for the app to work correctly.  
-apt and pip package manager are required.  
-Google the package names to find installation instructions for other operating systems.  
+Run these commands in your favorite terminal emulator before you run the app.
+The package manageres apt and pip are required.  
 
 > pip install configparser    
 
