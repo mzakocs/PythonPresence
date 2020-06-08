@@ -108,6 +108,7 @@ class SubscriptionApplication(object):
         self.statusdict = {}
         self.stopping = False
         self.lastmessage = None
+        self.commandsystemenabled = bool(config['SIPCONFIG']['commands'])
 
         self._subscription_routes = None
         self._subscription_timeout = 0.0
@@ -260,12 +261,17 @@ class SubscriptionApplication(object):
                 self.output.put('Got illegal PIDF document: %s\n%s' % (str(e), notification.data.body))
             else:
                 from_header = FromHeader.new(notification.data.from_header)
-                self.statusdict[str(from_header.uri.user)] = self._display_pidf(pidf).lower()
+                extension = str(from_header.uri.user)
+                status = self._display_pidf(pidf).lower()
+                self.statusdict[extension] = status
                 if (notification.sender.route_header):
                     route = Route(notification.sender.route_header.uri.host, notification.sender.route_header.uri.port, notification.sender.route_header.uri.parameters.get('transport', 'udp'))
-                    datajson = json.dumps({"data": json.dumps(self.statusdict), "to": "all", "type": "statusupdate"})
-                    if (datajson != self.lastmessage):
-                        self._send_message(self.account.uri, datajson, route) # sends a statusupdate sip command
+                    datajson = {"data": json.dumps(self.statusdict)} # This is no longer used as the presences are pulled from the DB
+                    newjson = json.dumps({"to": "all", "type": "statusupdate", 'data': extension})
+                    if (datajson != self.lastmessage): # makes sure stuff doesn't happen multiple times from multiple same notifies
+                        if (self.commandsystemenabled):
+                           self._send_message(self.account.uri, newjson, route) # sends a statusupdate sip command if the system is enabled
+                        self.db.updatePresence(extension, status)
                         self.lastmessage = datajson
 
     def _NH_DNSLookupDidFail(self, notification):

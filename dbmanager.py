@@ -21,29 +21,36 @@ class DatabaseManager:
         self.password = config['DATABASECONFIG']['password']
         self.database = config['DATABASECONFIG']['database']
         self.table = config['DATABASECONFIG']['table']
-        self.column = config['DATABASECONFIG']['column']
+        self.readcolumn = config['DATABASECONFIG']['readcolumn'] # The column that has the SIP extensions
+        self.writecolumn = config['DATABASECONFIG']['writecolumn'] # The column that will be written to with the updated presence
         # Initiates the database connection
         self.conn = psycopg2.connect(host = self.host, database = self.database, user = self.user, password = self.password, port = self.port)
+        # Creates a cursor
+        self.cur = self.conn.cursor()
         
     def loadExtensions(self):
-        # Creates a cursor 
-        cur = self.conn.cursor()
         # Executes the query to read all extensions
-        query = "SELECT DISTINCT " + self.column + " FROM " + self.table + " WHERE " + self.column + " IS NOT NULL"
-        cur.execute(query)
+        query = "SELECT DISTINCT " + self.readcolumn + " FROM " + self.table + " WHERE " + self.readcolumn + " IS NOT NULL"
+        self.cur.execute(query)
         # Read the values
-        extensionlist = cur.fetchall()
+        extensionlist = self.cur.fetchall()
         formattedextensionlist = []
         # Convert the values from tuples into their individual values
         for result in extensionlist:
             formattedextensionlist.append(str(result[0]))
         print("Retrieved new Subscribe Extensions from DB: %s" % formattedextensionlist)
-        # Close the cursor
-        cur.close()
         # Add the subscriptions
         self.subscriptionapp._setup_new_subscriptions(formattedextensionlist)
 
+    def updatePresence(self, extension, presence):
+        # Executes the query to update the record
+        query = "UPDATE " + self.table + " SET " + self.writecolumn + " = '" + str(presence) + "' WHERE " + self.readcolumn + " = '" + str(extension) + "'"
+        status = self.cur.execute(query)
+        self.conn.commit()
+
     def destroyDBConnection(self):
+        # Close the cursor
+        self.cur.close()
         # Closes the connection to the database
         self.conn.close()
 

@@ -1,10 +1,12 @@
 # PythonPresence  
-> SIP Backend for BLF and WebPresence through JSON based SIP commands written in Python 2.7  
+> SIP Backend for BLF and WebPresence through PostgreSQL and JSON based SIP commands written in Python 2.7  
+<p align="center"><img width="350" height="90" src="media/ring.gif"></p>
 
 ## Notes  
 - The database helper class currently only supports PostgreSQL. This can be very easily changed to any flavor of SQL you like. 
-- The updates for WebPresence and BLF are sent out over SIP messaging to a command extension. 
-You need to write something on your front end to parse these JSON requests and act on them accordingly.  
+- A SIP message is sent out to a COMMAND extension, this is to notify everybody that the database was updated.
+You need to write something in your SIP client to parse these JSON requests and act on them accordingly. Otherwise, you can turn this off easily
+in the config. 
 - The app is written in Python 2.7 because of compatibility reasons with SIPSIMPLE, the SIP stack library used in this application.  
 - You need to add an account with SIPSIMPLE in your favorite terminal emulator before you can run the app.
   > sip-settings -a add user@domain password  
